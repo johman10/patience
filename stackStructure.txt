@@ -1,0 +1,11 @@
+waste = { open, closed }
+foundation = [[], [], [], []]
+tableau = [
+  { open, closed },
+  { open, closed },
+  { open, closed },
+  { open, closed },
+  { open, closed },
+  { open, closed },
+  { open, closed }
+]
