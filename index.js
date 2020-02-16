@@ -142,14 +142,29 @@ function playFromTableauToTableau(tableau, fromIndex, toIndex) {
     tableau: tableauClone,
   };
 }
-//
-// function playFromFoundationToTableau(foundation, tableau, fromIndex, toIndex) {
-//
-//   return {
-//     foundation,
-//     tableau,
-//   };
-// }
+
+function playFromFoundationToTableau(foundation, tableau, fromIndex, toIndex) {
+  const foundationClone = deepClone(foundation);
+  const foundationCard = foundationClone[fromIndex][0];
+  const tableauClone = deepClone(tableau);
+  const tableauStack = tableauClone[toIndex].open;
+  const tableauCard = tableauStack[0];
+  const fitsSuit = areDifferentColour(tableauCard, foundationCard);
+  const fitsRank = areSequential(foundationCard, tableauCard);
+
+  const kingRequirement = isKing(foundationCard) && !tableauStack.length;
+  const nonKingRequirement = fitsRank && fitsSuit;
+
+  if (kingRequirement || nonKingRequirement) {
+    const cardToMove = foundationClone[fromIndex].splice(0, 1);
+    tableauClone[toIndex].open = [cardToMove[0], ...tableauStack];
+  }
+
+  return {
+    tableau: tableauClone,
+    foundation: foundationClone,
+  };
+}
 
 module.exports = {
   generateDeck,
@@ -158,7 +173,7 @@ module.exports = {
   shuffle,
   playFromWasteToTableau,
   playFromWasteToFoundation,
-  // playFromFoundationToTableau,
+  playFromFoundationToTableau,
   playFromTableauToFoundation,
   playFromTableauToTableau,
 };

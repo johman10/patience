@@ -139,8 +139,9 @@ describe('playFromTableauToTableau', () => {
     expect(output).toEqual(expectation);
   });
 
-  it('doens\'t move more than the stack based on suit', () => {
+  it('doens\'t move more than possible based on suit', () => {
     const tableau = [
+      { open: [], closed: [] },
       {
         open: [
           { rank: 'a', suit: 'spade' },
@@ -155,12 +156,12 @@ describe('playFromTableauToTableau', () => {
       { open: [], closed: [] },
       { open: [], closed: [] },
       { open: [], closed: [] },
-      { open: [], closed: [] },
     ];
 
-    const output = playFromTableauToTableau(tableau, 0, 1).tableau;
+    const output = playFromTableauToTableau(tableau, 1, 2).tableau;
 
     const expectation = [
+      { open: [], closed: [] },
       {
         open: [
           { rank: '4', suit: 'spade' },
@@ -180,13 +181,12 @@ describe('playFromTableauToTableau', () => {
       { open: [], closed: [] },
       { open: [], closed: [] },
       { open: [], closed: [] },
-      { open: [], closed: [] },
     ];
 
     expect(output).toEqual(expectation);
   });
 
-  it('doens\'t move more than the stack based on rank', () => {
+  it('doens\'t move more than possible based on rank', () => {
     const tableau = [
       {
         open: [
